@@ -2,6 +2,8 @@
 
 > A web application for managing and creating color palettes.
 
+![banner](readme-banner.png)
+
 ## Build Setup
 
 ``` bash
