@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Palettes from '@/components/pages/Palettes'
-import NewPalette from '@/components/pages/NewPalette'
+import CreatePalette from '@/components/pages/CreatePalette'
 
 Vue.use(Router)
 
@@ -13,9 +13,9 @@ export default new Router({
     	component: Palettes
 	},
 	{
-		path: '/newpalette',
-		name: 'New Palettes',
-		component: NewPalette
+		path: '/createpalette',
+		name: 'Create Palettes',
+		component: CreatePalette
 	}
   ]
 })

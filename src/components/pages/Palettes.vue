@@ -5,7 +5,7 @@
 			<div class="header-group">
 				<page-header subheader-title="My" header-title="Palettes"></page-header>
 				<!-- TODO: Make this button a seperate component -->
-				<router-link to="NewPalette" class="btn btn-primary" id="btnNewPalettes">Create Palette <svgicon icon="plus" color="#ffffff"></svgicon></router-link>
+				<router-link to="CreatePalette" class="btn btn-primary" id="btnNewPalettes">Create Palette <svgicon icon="plus" color="#ffffff"></svgicon></router-link>
 			</div>
 			<div class="palettes">
 				<!-- For each color palette in the color palette array, create a new color palette object
@@ -28,11 +28,6 @@ export default {
 	name: 'palettes',
 	data() {
 		return {
-			navItems: [
-				{title: 'Palettes', selected: true},
-				{title: 'Groups', selected: false},
-				{title: 'Generator', selected: false}
-			],
 			colorPalettes: []
 		}
 	},

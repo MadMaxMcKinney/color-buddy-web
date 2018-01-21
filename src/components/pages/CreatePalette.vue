@@ -8,7 +8,7 @@
 import navbar from '../Navbar'
 
 export default {
-	name: 'new-palette',
+	name: 'create-palette',
 	data() {
 		return {
 
