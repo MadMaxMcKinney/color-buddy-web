@@ -40,20 +40,31 @@ export default {
 		// Get the color palettes from the Firestore DB and push them onto the colorPalettes array
 		// TODO: Make this fetch only grab the palettes from current user that is logged in
 		fetchColorPalettes() {
+			var newPaletteArray = []
 			db.collection("colorPalettes").get().then((querySnapshot => {
 				querySnapshot.forEach((doc => {
-					const data = {
+					const palette = {
 						title: doc.data().title,
-						colors: doc.data().colors
+						colors: doc.data().colors,
+						id: doc.id
 					}
-					this.colorPalettes.push(data)
+					newPaletteArray.push(palette)
 				}))
+				// Update the page's colorPaletts array by expanding (ES6) with the newPaletteArray.
+				// This will prevent any duplication of items by fully replacing the array.
+				// TODO: Ideally we would like to only update a specific palette if it changes, not the whole array
+				this.colorPalettes = [...newPaletteArray]
 			}))
 			console.log("Fetching data");
+		},
+		updateColorPalette(indexOfPalette) {
+
 		}
 	},
 	created() {
 		this.fetchColorPalettes()
+		// Link our firestore database realtime functions to our fetchColorPalettes method whenever it updates
+		db.collection("colorPalettes").onSnapshot(doc => this.fetchColorPalettes())
 	}
 }
 </script>
