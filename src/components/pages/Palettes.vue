@@ -10,7 +10,7 @@
 			<div class="palettes">
 				<!-- For each color palette in the color palette array, create a new color palette object
 				with the title of the palette and the array of colors -->
-				<color-palette v-for="palette in colorPalettes" :key="palette.user_id" v-bind:colors="palette.colors" v-bind:title="palette.title"></color-palette>
+				<color-palette v-for="palette in colorPalettes" :key="palette.id" v-bind:colors="palette.colors" v-bind:title="palette.title" v-on:click.native="viewDetailPalette(palette.title, palette.id)"></color-palette>
 			</div>
 		</section>
 	</div>
@@ -37,6 +37,9 @@ export default {
 		'color-palette': colorPalette
 	},
 	methods: {
+		viewDetailPalette(paletteTitle, paletteId) {
+			this.$router.push({ name: 'palette', params: { id: paletteId} });	
+		},
 		// Get the color palettes from the Firestore DB and push them onto the colorPalettes array
 		// TODO: Make this fetch only grab the palettes from current user that is logged in
 		fetchColorPalettes() {
@@ -62,6 +65,7 @@ export default {
 		}
 	},
 	created() {
+		// Initially pull from our Firestore DB when this page is created
 		this.fetchColorPalettes()
 		// Link our firestore database realtime functions to our fetchColorPalettes method whenever it updates
 		db.collection("colorPalettes").onSnapshot(doc => this.fetchColorPalettes())

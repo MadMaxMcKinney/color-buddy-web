@@ -31,6 +31,12 @@ export default {
 	border-radius: 16px;
     overflow: hidden;
 	position: relative;
+	transition: all 0.3s;
+}
+.palette-card:hover, .palette-card:focus, .palette-card:active {
+	box-shadow: 0px 8px 23px #0000001a;
+	transform: translateY(-2px);
+	cursor: pointer;
 }
 .palette-card-title {
 	color: #1E1E1E;
