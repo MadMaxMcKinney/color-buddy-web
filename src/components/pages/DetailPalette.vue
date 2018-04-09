@@ -1,12 +1,14 @@
 <template>
 	<div class="page">
-		<ul class="palette-list">
-			<li class="detail-palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color}"></li>
-		</ul>
+		<router-link to="/" class="btn-return"><svgicon width="32" height="32" icon="arrow-left" color="#ffffff"></svgicon></router-link>
+		<transition-group name="detail-palette-color-group" tag="ul" class="palette-list">
+			<li class="detail-palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color}"></li>	
+		</transition-group>
 	</div>
 </template>
 
 <script>
+import iconArrowLeft from '../../compiled-icons/arrow-left'
 
 import db from '../firebaseInit'
 
@@ -29,7 +31,8 @@ export default {
 		db.collection('colorPalettes').doc(this.id).get().then(doc => {
 			if(doc.exists) {
 				// ES6 way of expanding the colors field from the DB to the prop field on the detail palette page
-				this.colors = [...doc.data().colors];
+				var dbColors = doc.data().colors;
+				this.colors = [...dbColors];
 				this.title = doc.data().title;
 			}
 		});
@@ -53,6 +56,24 @@ export default {
 	width: 100%;
 	height: 100%;
 	display: inline-block;
+}
+
+.detail-palette-color-group-enter-active, .detail-palette-color-group-leave-active {
+	transition: all 0.4s;
+}
+
+.detail-palette-color-group-enter {
+	opacity: 0;
+	transform: scale(0.9);
+}
+
+.detail-palette-color-group-enter-to {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.detail-palette-color-group-leave-to {
+	opacity: 0;
 }
 
 </style>

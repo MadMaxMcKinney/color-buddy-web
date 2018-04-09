@@ -5,13 +5,13 @@
 			<div class="header-group">
 				<page-header subheader-title="My" header-title="Palettes"></page-header>
 				<!-- TODO: Make this button a seperate component -->
-				<router-link to="CreatePalette" class="btn btn-primary" id="btnNewPalettes">Create Palette <svgicon icon="plus" color="#ffffff"></svgicon></router-link>
+				<router-link to="createpalette" class="btn btn-primary" id="btnNewPalettes">Create Palette <svgicon icon="plus" color="#ffffff"></svgicon></router-link>
 			</div>
-			<div class="palettes">
+			<transition-group name="palette-list" class="palettes" tag="div">
 				<!-- For each color palette in the color palette array, create a new color palette object
-				with the title of the palette and the array of colors -->
+			with the title of the palette and the array of colors -->
 				<color-palette v-for="palette in colorPalettes" :key="palette.id" v-bind:colors="palette.colors" v-bind:title="palette.title" v-on:click.native="viewDetailPalette(palette.title, palette.id)"></color-palette>
-			</div>
+			</transition-group>
 		</section>
 	</div>
 </template>
@@ -82,29 +82,25 @@ export default {
 	grid-column: center;
 	grid-row: content;
 }
-.btn {
-	padding: 6px 12px;
-	display: block;
-	text-decoration: none;
-	border-radius: 4px;
-	transition: opacity 0.3s;
-	font-size: 13px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.btn-primary {
-	background-color: #1e1e1e;
-	color: white;
-}
-.btn-primary:hover {
-	opacity: 0.8;
-}
-.btn .svg-icon {
-	margin-left: 6px;
-}
 #btnNewPalettes {
 	align-self: end;
 }
+
+.palette-list-enter-active, .palette-list-leave-active {
+	transition: all 1s;
+}
+
+.palette-list-enter {
+	opacity: 0;
+}
+
+.palette-list-enter-to {
+	opacity: 1;
+}
+
+.palette-list-leave-to {
+	opacity: 0;
+}
+
 </style>
 

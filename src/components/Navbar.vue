@@ -2,7 +2,9 @@
 	<div class="nav">
 		<div class="nav-content">
 			<div class="nav-left">
-				<img src="../assets/color-buddy-logo.png" alt="Color Buddy" class="logo" />
+				<router-link to="/">
+					<img src="../assets/color-buddy-logo.png" srcset="../assets/color-buddy-logo@2x.png" alt="Color Buddy" class="logo" />
+				</router-link>
 				<ul class="nav-items">
 					<li v-for="(item, index) in navItems" :key="index" v-bind:class="{selected : item.selected}">{{item.title}}</li>
 				</ul>
@@ -37,7 +39,7 @@ export default {
 	align-items: center;
 	grid-row: nav;
 	grid-column: 1 / 4;
-	box-shadow: 0 4px 22px 0 rgba(0,0,0,0.07);
+	box-shadow: 0 4px 22px 0 rgba(0,0,0,0.05);
 }
 .nav-content {
 	width: 100%;
@@ -66,8 +68,15 @@ export default {
 	align-items: center;
 	height: 100%;
 	justify-content: center;
+	color: #272727;
+	font-size: 14px;
+	margin-right: 20px;
 }
 	.nav-items li.selected {
 		border-bottom: 1px solid #E74C3C;
 	}
+
+.logo {
+	height: 20px;
+}
 </style>

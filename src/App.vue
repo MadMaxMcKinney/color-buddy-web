@@ -13,6 +13,10 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Roboto:400,700');
 
+:root {
+	--primary-color: #333;
+}
+
 body, html {
 	height: 100%;
 	width: 100%;
@@ -48,6 +52,8 @@ h1,h2,h3,h4,h5,h6,p {
 	display: flex;
 	flex-direction: column;
 }
+
+/* SVG */
 .svg-icon {
     display: inline-block;
     width: 16px;
@@ -79,4 +85,44 @@ h1,h2,h3,h4,h5,h6,p {
 .svg-left {
     transform: rotate(-90deg);
 }
+
+/* Buttons */
+.btn {
+	padding: 6px 12px;
+	display: block;
+	text-decoration: none;
+	border-radius: 4px;
+	transition: opacity 0.3s;
+	font-size: 13px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.btn-primary {
+	background-color: #1e1e1e;
+	color: white;
+}
+.btn-primary:hover {
+	opacity: 0.8;
+}
+.btn .svg-icon {
+	margin-left: 6px;
+}
+.btn-return {
+	position: absolute;
+	top: 24px;
+	left: 24px;
+	animation: fade-in 3s;
+}
+
+/* Animations */
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 </style>
