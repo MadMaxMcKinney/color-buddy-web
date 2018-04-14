@@ -20,7 +20,16 @@ export default new Router({
 	{
 		path: '/createpalette',
 		name: 'createpalette',
-		component: CreatePalette
+		component: CreatePalette,
+		beforeEnter: (to, from, next) => {
+			if(firebase.auth().currentUser) {
+				next();
+			} else {
+				next(false);
+				Vue.toasted.show('Must be logged in');
+				from();
+			}
+		}
 	},
 	{
 		path: '/login',
@@ -29,7 +38,7 @@ export default new Router({
 		beforeEnter: (to, from, next) => {
 			if(firebase.auth().currentUser) {
 				next(false);
-				Vue.toasted.show('Already logged in!');
+				Vue.toasted.show('Already logged in');
 				from();
 			} else {
 				next();
