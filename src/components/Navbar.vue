@@ -10,13 +10,16 @@
 				</ul>
 			</div>
 			<div class="nav-right">
-				<a class="nav-profile"><img /></a>
+				<profile-dropdown :auth="this.auth"></profile-dropdown>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import firebase from '../components/firebaseInit'
+import profileDropdown from './ProfileDropdown'
+
 export default {
 	name: 'Navbar',
 	data() {
@@ -25,8 +28,21 @@ export default {
 				{title: 'Palettes', selected: true},
 				{title: 'Groups', selected: false},
 				{title: 'Generator', selected: false}
-			]
+			],
+			auth: false
 		}
+	},
+	created() {
+		firebase.auth().onAuthStateChanged(user => {
+			if(user) {
+				this.auth = true;
+			} else {
+				this.auth = false;
+			}
+		})
+	},
+	components: {
+		'profile-dropdown' : profileDropdown
 	}
 }
 </script>
@@ -47,7 +63,7 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	height: 100%;
-	padding: 0px 24px;
+	margin: 0px 24px;
 }
 .nav-left, .nav-right {
 	display: flex;
@@ -79,4 +95,5 @@ export default {
 .logo {
 	height: 20px;
 }
+
 </style>

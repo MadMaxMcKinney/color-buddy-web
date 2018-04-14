@@ -17,18 +17,29 @@ export default {
 	--primary-color: #333;
 }
 
+* {
+	box-sizing: border-box !important;
+}
+
 body, html {
 	height: 100%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
 }
 h1,h2,h3,h4,h5,h6,p {
 	margin: 0;
 	padding: 0;
 }
+a {
+	text-decoration: none;
+	color: #1e1e1e;
+	transition: opacity 0.3s;
+}
+	a:hover, a:focus, a:active {
+		opacity: 0.8;
+	}
 #app {
 	width: 100%;
 	height: 100%;
@@ -89,6 +100,7 @@ h1,h2,h3,h4,h5,h6,p {
 /* Buttons */
 .btn {
 	padding: 6px 12px;
+	width: fit-content;
 	display: block;
 	text-decoration: none;
 	border-radius: 4px;
@@ -98,12 +110,26 @@ h1,h2,h3,h4,h5,h6,p {
 	justify-content: center;
 	align-items: center;
 }
+.btn:hover {
+	cursor: pointer;
+}
 .btn-primary {
 	background-color: #1e1e1e;
 	color: white;
 }
 .btn-primary:hover {
 	opacity: 0.8;
+}
+.btn-secondary {
+	color: #616161;
+    border: 1px solid #c7c7c7;
+}
+.btn-secondary:hover {
+	opacity: 0.8;
+}
+
+.btn-fill {
+	width: 100%;
 }
 .btn .svg-icon {
 	margin-left: 6px;
@@ -113,6 +139,29 @@ h1,h2,h3,h4,h5,h6,p {
 	top: 24px;
 	left: 24px;
 	animation: fade-in 3s;
+}
+
+/* Fields */
+label {
+	margin-bottom: 8px;
+}
+
+input {
+	margin-bottom: 24px;
+    margin-top: 12px;
+	width: 100%;
+    height: 32px;
+    border-radius: 2px;
+    border: none;
+    padding: 0px 8px;
+	transition: all 0.3s;
+	box-shadow: 0px 1px 3px #0000001f;
+}
+
+input:hover, input:focus, input:active {
+	box-shadow: 0px 5px 20px #00000014;
+	transform: translateY(-1px);
+	outline: none;
 }
 
 /* Animations */

@@ -2,7 +2,7 @@
 	<div class="page">
 		<navbar></navbar>
 		<section class="content">
-			<form id="createPaletteForm" @submit="createPalette">
+			<form id="createPaletteForm">
 			
 				<p>
 					<label for="title">Title</label>
@@ -12,14 +12,12 @@
 				<p>
 					<label>Colors</label>
 					<ul class="new-color-list">
-						<li v-for="(color, index) in colors" :key="index"><input type="color" :id="'color' + index" v-model="color.value"/></li>
 						<li><a class="btn" id="newColorBtn" @click="newColor">+</a></li>
+						<li v-for="(color, index) in colors" :key="index"><input type="color" :id="'color' + index" v-model="color.value"/></li>
 					</ul>
 				</p>
 
-				<p>
-					<input type="submit" value="Create Palette" />
-				</p>
+				<a class="btn btn-primary" v-on:click="createPalette">Create Palette</a>
 
 			</form>
 		</section>
@@ -28,7 +26,7 @@
 
 <script>
 import navbar from '../Navbar'
-import db from '../firebaseInit'
+import firebase from '../firebaseInit'
 
 export default {
 	name: 'create-palette',
@@ -36,7 +34,7 @@ export default {
 		return {
 			colors: [],
 			title: null,
-			user_id: null
+			colorLimit: 6
 		}
 	},
 	methods: {
@@ -50,27 +48,29 @@ export default {
 
 			// Create the new color palette object to send to the db
 			newPalette.title = this.title;
-			newPalette.user_id = this.user_id;
+			newPalette.user_id = firebase.auth().currentUser.uid;
 			this.colors.forEach(element => {
 				newPalette.colors.push(element.value);
 			});
 			// Add the new color palette to the database via 'add' which generates an automatic id
-			db.collection('colorPalettes').add(newPalette).then(docRef => {
+			firebase.firestore().collection('colorPalettes').add(newPalette).then(docRef => {
 				console.log('Successfully added new color palette');
 			});
 
 			// Stop the submit form button from interacting with the page navigation
 			e.preventDefault();
+
+			this.$toasted.show('Created Palette');
+
+			this.$router.push('/');
     	},
 		newColor : function() {
-			this.colors.push({
-				value: '#123456'
-			});
-		}
-	},
-	created() {
-		// Get the user id of the current logged in user
-		this.user_id = 0;
+			if(this.colors.length < this.colorLimit) {
+				this.colors.push({
+					value: '#123456'
+				});
+			}
+		},
 	},
 	components: {
 		'navbar': navbar
@@ -86,6 +86,16 @@ export default {
     padding: 0;
     display: flex;
     flex-direction: row;
+}
+
+.new-color-list li {
+    box-shadow: 0px 5px 20px #00000014;
+    margin: 24px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 </style>

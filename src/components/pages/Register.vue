@@ -4,18 +4,14 @@
 		<section class="content">
 			<div class="login-container">
 				<div class="login-box">
-					<p class="login-text-title"><span>Already have an account?</span> Sign in.</p>
+					<p class="login-text-title">Register.</p>
 					<label for="uname"><b>Email</b></label>
 					<input type="text" placeholder="Enter Email" name="uname" v-model="email">
 
 					<label for="psw"><b>Password</b></label>
 					<input type="password" placeholder="Enter Password" name="psw" v-model="password">
 
-					<a class="btn btn-primary btn-fill" v-on:click="login">Login</a>
-					
-					<p class="login-register-text">No account? Register below to create one and sync your palettes.</p>
-
-					<router-link class="btn btn-secondary btn-fill" to="register">Register</router-link>
+					<a class="btn btn-primary btn-fill" v-on:click="register">Register</a>
 				</div>
 			</div>
 		</section>
@@ -29,25 +25,22 @@ import firebase from '../firebaseInit'
 import navbar from '../Navbar'
 
 export default {
-	name: 'login',
+	name: 'register',
 	data() {
 		return {
 			email : '',
-			password : '',
+			password : ''
 		}
 	},
 	methods : {
-		login : function() {
-			firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-			.then(
+		register() {
+			firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
 				user => {
-					this.$toasted.show('Logged in successfully');
-					this.$router.push('/');
-				}
-			)
-			.catch(
-				error => {
-					alert("Error: " + error);
+					this.$toasted.show("Account has been created. You are now logged in!");
+					this.$router.push('/');	
+				},
+				err => {
+					alert("Error: " + err.message);
 				}
 			);
 		}
@@ -67,14 +60,6 @@ export default {
     flex-direction: column;
     margin-top: 42px;
     margin-bottom: 42px;
-}
-
-.login-register-text {
-	margin-top: 24px;
-    margin-bottom: 12px;
-    font-size: 11px;
-    color: #929292;
-    text-align: center;
 }
 
 .login-text-title {

@@ -7,13 +7,14 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-	"build": "node build/build.js",
-	"generate-icons": "vsvg -s ./svg-icons -t ./src/compiled-icons"
+    "build": "node build/build.js",
+    "generate-icons": "vsvg -s ./svg-icons -t ./src/compiled-icons"
   },
   "dependencies": {
     "firebase": "^4.8.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-toasted": "^1.1.24"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

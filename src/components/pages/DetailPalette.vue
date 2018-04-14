@@ -10,7 +10,7 @@
 <script>
 import iconArrowLeft from '../../compiled-icons/arrow-left'
 
-import db from '../firebaseInit'
+import firebase from '../firebaseInit'
 
 export default {
 	name: 'detail-palette',
@@ -28,7 +28,7 @@ export default {
 	},
 	created() {
 		// Get the palette info from the Firebase DB with the ID of the palette
-		db.collection('colorPalettes').doc(this.id).get().then(doc => {
+		firebase.firestore().collection('colorPalettes').doc(this.id).get().then(doc => {
 			if(doc.exists) {
 				// ES6 way of expanding the colors field from the DB to the prop field on the detail palette page
 				var dbColors = doc.data().colors;
