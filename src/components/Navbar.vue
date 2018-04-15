@@ -64,7 +64,11 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	height: 100%;
-	margin: 0px 24px;
+}
+@media (max-width: 1100px) {
+	.nav-content {
+		padding: 0px 24px;
+	}
 }
 .nav-left, .nav-right {
 	display: flex;

@@ -36,7 +36,6 @@ import colorPalette from '../PaletteCard'
 import iconPlus from '../../compiled-icons/plus'
 
 import firebase from '../firebaseInit'
-import { firestore } from 'firebase';
 
 export default {
 	name: 'palettes',
@@ -108,6 +107,16 @@ export default {
 	grid-column: center;
 	grid-row: content;
 	margin-bottom: 40px;
+}
+@media (max-width: 680px) {
+	.palettes {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 480px) {
+	.palettes {
+		grid-template-columns: repeat(1, 1fr);
+	}
 }
 #btnNewPalettes {
 	align-self: end;
