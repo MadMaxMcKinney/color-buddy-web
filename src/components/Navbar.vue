@@ -6,7 +6,7 @@
 					<img src="../assets/color-buddy-logo.png" srcset="../assets/color-buddy-logo@2x.png" alt="Color Buddy" class="logo" />
 				</router-link>
 				<ul class="nav-items">
-					<li v-for="(item, index) in navItems" :key="index" v-bind:class="{selected : item.selected}">{{item.title}}</li>
+					<li v-for="(item, index) in navItems" :key="index" v-bind:class="{selected : index == selectedNavItemIndex}"><router-link :to="item.path">{{item.title}}</router-link></li>
 				</ul>
 			</div>
 			<div class="nav-right">
@@ -25,13 +25,14 @@ export default {
 	data() {
 		return {
 			navItems: [
-				{title: 'Palettes', selected: true},
-				{title: 'Groups', selected: false},
-				{title: 'Generator', selected: false}
+				{title: 'Palettes', selected: true, path: '/' },
+				{title: 'Groups', selected: false, path: 'groups' },
+				{title: 'Generator', selected: false, path: 'generator'}
 			],
-			auth: false
+			auth: false,
 		}
 	},
+	props: ['selectedNavItemIndex'],
 	created() {
 		firebase.auth().onAuthStateChanged(user => {
 			if(user) {

@@ -127,6 +127,10 @@ a {
 .btn-secondary:hover {
 	opacity: 0.8;
 }
+.btn-large {
+    font-size: 16px;
+    padding: 12px 20px;
+}
 
 .btn-fill {
 	width: 100%;
@@ -143,7 +147,11 @@ a {
 
 /* Fields */
 label {
-	margin-bottom: 8px;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 600;
+    font-size: 24px;
+    color: #1e1e1e;
 }
 
 input {
@@ -164,6 +172,10 @@ input:hover, input:focus, input:active {
 	outline: none;
 }
 
+.close-input {
+	margin-top: 0px;
+}
+
 /* Animations */
 @keyframes fade-in {
 	0% {
@@ -172,6 +184,12 @@ input:hover, input:focus, input:active {
 	100% {
 		opacity: 1;
 	}
+}
+
+/*Misc*/
+.space {
+	display: block;
+	height: 60px;
 }
 
 </style>

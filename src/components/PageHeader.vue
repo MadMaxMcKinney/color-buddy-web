@@ -1,9 +1,9 @@
 <template>
 	<div class="page-header">
-		<h2 class="page-subheader-title">
+		<h2 v-if="subheaderTitle" class="page-subheader-title">
 			{{subheaderTitle}}
 		</h2>
-		<h1 class="page-header-title">
+		<h1 v-if="headerTitle" class="page-header-title">
 			{{headerTitle}}
 		</h1>
 	</div>
@@ -36,7 +36,6 @@ export default {
 }
 .page-header-title {
 	height: 39px;
-	width: 118px;
 	color: #1E1E1E;
 	font-family: Lato;
 	font-size: 32px;

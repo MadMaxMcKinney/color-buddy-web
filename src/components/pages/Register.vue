@@ -10,6 +10,7 @@
 
 					<label for="psw"><b>Password</b></label>
 					<input type="password" placeholder="Enter Password" name="psw" v-model="password">
+					<input class="close-input" type="password" placeholder="Verify Password" name="vsw" v-model="verifyPassword">
 
 					<a class="btn btn-primary btn-fill" v-on:click="register">Register</a>
 				</div>
@@ -29,20 +30,25 @@ export default {
 	data() {
 		return {
 			email : '',
-			password : ''
+			password : '',
+			verifyPassword : ''
 		}
 	},
 	methods : {
 		register() {
-			firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-				user => {
-					this.$toasted.show("Account has been created. You are now logged in!");
-					this.$router.push('/');	
-				},
-				err => {
-					alert("Error: " + err.message);
-				}
-			);
+			if(this.password == this.verifyPassword) {
+				firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+					user => {
+						this.$toasted.show("Account has been created. You are now logged in!");
+						this.$router.push('/');	
+					},
+					err => {
+						alert("Error: " + err.message);
+					}
+				);
+			} else {
+				alert("Passwords do not match");
+			}
 		}
 	},
 	components: {
