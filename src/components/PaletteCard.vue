@@ -4,7 +4,7 @@
 		<ul class="palette-card-colors">
 			<!-- For each color item in the color array use it's value to create a new list item
 			with the color background from the list item -->
-			<li class="palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color}"></li>
+			<li class="palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color.value}"></li>
 		</ul>
 	</div>
 </template>

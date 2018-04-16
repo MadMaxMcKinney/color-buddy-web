@@ -2,13 +2,17 @@
 	<div class="page">
 		<router-link to="/" class="btn-return"><svgicon width="32" height="32" icon="arrow-left" color="#ffffff"></svgicon></router-link>
 		<transition-group name="detail-palette-color-group" tag="ul" class="palette-list">
-			<li class="detail-palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color}"></li>	
+			<li class="detail-palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color.value}"></li>	
 		</transition-group>
+		<router-link :to="{ name: 'editpalette', params: {id: id}}" id="editPaletteBtn" v-on:click="deletePalette"><svgicon width="32" height="32" icon="pencil" color="#ffffff"></svgicon></router-link>
+		<a id="deletePaletteBtn" v-on:click="deletePalette"><svgicon width="32" height="32" icon="delete" color="#ffffff"></svgicon></a>
 	</div>
 </template>
 
 <script>
 import iconArrowLeft from '../../compiled-icons/arrow-left'
+import iconDelete from '../../compiled-icons/delete'
+import iconPencil from '../../compiled-icons/pencil'
 
 import firebase from '../firebaseInit'
 
@@ -24,6 +28,23 @@ export default {
 		id: {
 			type: String,
 			default: 0
+		}
+	},
+	methods: {
+		deletePalette() {
+			this.$swal({
+				title: 'Delete Palette?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#1e1e1e',
+			}).then(result => {
+				if(result.value) {
+					firebase.firestore().collection('colorPalettes').doc(this.id).delete();
+					this.$toasted.show(`Deleted palette '${this.title}'`);
+					this.$router.push('/');
+				}
+			});
 		}
 	},
 	created() {
@@ -74,6 +95,20 @@ export default {
 
 .detail-palette-color-group-leave-to {
 	opacity: 0;
+}
+
+#deletePaletteBtn {
+	position: absolute;
+	top: 24px;
+	right: 24px;
+	animation: fade-in 3s;
+}
+
+#editPaletteBtn {
+	position: absolute;
+	top: 24px;
+	right: 90px;
+	animation: fade-in 3s;
 }
 
 </style>

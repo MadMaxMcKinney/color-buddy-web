@@ -3,12 +3,12 @@
 		<navbar></navbar>
 		<section class="content">
 
-			<page-header header-title="Create new palette"></page-header>
+			<page-header header-title="Edit palette"></page-header>
 
 			<form id="createPaletteForm">
 			
 				<p>
-					<input type="text" name="title" id="title" v-model="title" placeholder="Palette name"/>
+					<input type="text" name="title" id="title" v-model="currentPalette.title" :placeholder="currentPalette.title" />
 				</p>
 				
 				<span class="space"></span>
@@ -23,9 +23,10 @@
 
 				<span class="space"></span>
 
-				<a class="btn btn-primary" v-on:click="createPalette">Create Palette</a>
+				<a class="btn btn-primary" v-on:click="modifyPalette">Modify Palette</a>
 
 			</form>
+
 		</section>
 	</div>
 </template>
@@ -36,30 +37,37 @@ import pageHeader from '../PageHeader'
 import firebase from '../firebaseInit'
 
 export default {
-	name: 'create-palette',
+	name: 'edit-palette',
 	data() {
 		return {
 			colors: [],
-			title: null,
-			colorLimit: 6
+			colorLimit: 6,
+			currentPalette:{}
+		}
+	},
+	props: {
+		id: {
+			type: String,
+			default: 0
 		}
 	},
 	methods: {
-		createPalette : function(e) {
+		modifyPalette : function(e) {
+			// TODO: Make sure the user can't go to edit palette page if they aren't the one who made the palette
 			if(this.colors.length >= 1) {
 				let newPalette = {
 					colors: [],
 					title: '',
 					user_id: 0
 				}
-				console.log('New color palette made with: ');
 
 				// Create the new color palette object to send to the db
 				newPalette.title = this.title;
 				newPalette.user_id = firebase.auth().currentUser.uid;
-				this.colors.forEach(color => {
-					newPalette.colors.push(color);
+				this.colors.forEach(element => {
+					newPalette.colors.push(element.value);
 				});
+
 				// Add the new color palette to the database via 'add' which generates an automatic id
 				firebase.firestore().collection('colorPalettes').add(newPalette).then(docRef => {
 					console.log('Successfully added new color palette');
@@ -68,7 +76,7 @@ export default {
 				// Stop the submit form button from interacting with the page navigation
 				e.preventDefault();
 
-				this.$toasted.show(`Created palette '${newPalette.title}'`);
+				this.$toasted.show('Modified Palette');
 
 				this.$router.push('/');
 			} else {
@@ -91,6 +99,15 @@ export default {
 	components: {
 		'navbar': navbar,
 		'page-header': pageHeader
+	},
+	created() {
+		firebase.firestore().collection('colorPalettes').doc(this.id).get().then(doc => {
+			if(doc.exists) {
+				// Grab the current color palette and assign it to a locally stored object
+				this.currentPalette = doc.data();
+				this.colors = this.currentPalette.colors;
+			}
+		});
 	}
 }
 </script>

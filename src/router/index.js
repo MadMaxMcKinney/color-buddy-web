@@ -5,6 +5,7 @@ import CreatePalette from '@/components/pages/CreatePalette'
 import LogIn from '@/components/pages/LogIn'
 import DetailPalette from '@/components/pages/DetailPalette'
 import Register from '@/components/pages/Register'
+import EditPalette from '@/components/pages/EditPalette'
 
 import firebase from '../components/firebaseInit'
 
@@ -55,6 +56,12 @@ export default new Router({
 		component: DetailPalette,
 		props: true,
 		name: 'palette'
+	},
+	{
+		path: '/edit/:id',
+		component: EditPalette,
+		props: true,
+		name: 'editpalette'
 	}
   ]
 })

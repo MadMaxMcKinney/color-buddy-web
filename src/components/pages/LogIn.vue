@@ -47,7 +47,12 @@ export default {
 			)
 			.catch(
 				error => {
-					alert("Error: " + error);
+					this.$swal({
+					title: 'Error',
+					text: error,
+					type: 'error',
+					confirmButtonColor: '#1e1e1e',
+				});
 				}
 			);
 		}

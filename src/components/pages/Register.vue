@@ -43,11 +43,21 @@ export default {
 						this.$router.push('/');	
 					},
 					err => {
-						alert("Error: " + err.message);
+						this.$swal({
+							title: 'Error',
+							text: err.message,
+							type: 'error',
+							confirmButtonColor: '#1e1e1e',
+						});
 					}
 				);
 			} else {
-				alert("Passwords do not match");
+				this.$swal({
+					title: 'Error',
+					text: "Passwords do not match",
+					type: 'error',
+					confirmButtonColor: '#1e1e1e',
+				});
 			}
 		}
 	},

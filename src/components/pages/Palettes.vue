@@ -11,7 +11,7 @@
 			<transition-group v-if="auth" name="palette-list" class="palettes" tag="div">
 				<!-- For each color palette in the color palette array, create a new color palette object
 			with the title of the palette and the array of colors -->
-				<color-palette v-for="palette in colorPalettes" :key="palette.id" v-bind:colors="palette.colors" v-bind:title="palette.title" v-on:click.native="viewDetailPalette(palette.title, palette.id)"></color-palette>
+				<color-palette v-for="palette in colorPalettes" :key="palette.id" v-bind:colors="palette.colors" v-bind:title="palette.title" v-on:click.native="viewDetailPalette(palette.id)"></color-palette>
 			</transition-group>
 
 			<div v-if="!auth" class="palette-empty">
@@ -51,7 +51,7 @@ export default {
 		'color-palette': colorPalette
 	},
 	methods: {
-		viewDetailPalette(paletteTitle, paletteId) {
+		viewDetailPalette(paletteId) {
 			this.$router.push({ name: 'palette', params: { id: paletteId} });	
 		},
 		fetchColorPalettes() {
