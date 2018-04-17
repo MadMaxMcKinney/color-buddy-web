@@ -186,6 +186,25 @@ input:hover, input:focus, input:active {
 	}
 }
 
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes flash {
+	0% {
+		opacity: 0.4;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+
 /*Misc*/
 .space {
 	display: block;

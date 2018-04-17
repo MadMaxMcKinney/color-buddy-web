@@ -8,7 +8,7 @@
 			<form id="createPaletteForm">
 			
 				<p>
-					<input type="text" name="title" id="title" v-model="currentPalette.title" :placeholder="currentPalette.title" />
+					<input type="text" name="title" id="title" v-model="title" :placeholder="title" />
 				</p>
 				
 				<span class="space"></span>
@@ -23,7 +23,7 @@
 
 				<span class="space"></span>
 
-				<a class="btn btn-primary" v-on:click="modifyPalette">Modify Palette</a>
+				<a class="btn btn-primary" v-on:click="modifyPalette">Save Changes</a>
 
 			</form>
 
@@ -64,19 +64,20 @@ export default {
 				// Create the new color palette object to send to the db
 				newPalette.title = this.title;
 				newPalette.user_id = firebase.auth().currentUser.uid;
-				this.colors.forEach(element => {
-					newPalette.colors.push(element.value);
+				this.colors.forEach(color => {
+					newPalette.colors.push(color);
 				});
 
 				// Add the new color palette to the database via 'add' which generates an automatic id
-				firebase.firestore().collection('colorPalettes').add(newPalette).then(docRef => {
+				firebase.firestore().collection('colorPalettes').doc(this.id).set(newPalette).then(docRef => {
+					console.log(this.id);
 					console.log('Successfully added new color palette');
 				});
 
 				// Stop the submit form button from interacting with the page navigation
 				e.preventDefault();
 
-				this.$toasted.show('Modified Palette');
+				this.$toasted.show(`Modified palette '${this.title}'`);
 
 				this.$router.push('/');
 			} else {
@@ -104,8 +105,8 @@ export default {
 		firebase.firestore().collection('colorPalettes').doc(this.id).get().then(doc => {
 			if(doc.exists) {
 				// Grab the current color palette and assign it to a locally stored object
-				this.currentPalette = doc.data();
-				this.colors = this.currentPalette.colors;
+				this.title = doc.data().title;
+				this.colors = doc.data().colors;
 			}
 		});
 	}

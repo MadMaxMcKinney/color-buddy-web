@@ -1,9 +1,12 @@
 <template>
 	<div class="page">
-		<router-link to="/" class="btn-return"><svgicon width="32" height="32" icon="arrow-left" color="#ffffff"></svgicon></router-link>
 		<transition-group name="detail-palette-color-group" tag="ul" class="palette-list">
-			<li class="detail-palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color.value}"></li>	
+			<li class="detail-palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color.value}">
+				<a class="detail-palette-color-selector" v-on:click="copyColorInfo(color.value, $event)"></a>	
+			</li>	
 		</transition-group>
+
+		<router-link to="/" class="btn-return"><svgicon width="32" height="32" icon="arrow-left" color="#ffffff"></svgicon></router-link>
 		<router-link :to="{ name: 'editpalette', params: {id: id}}" id="editPaletteBtn" v-on:click="deletePalette"><svgicon width="32" height="32" icon="pencil" color="#ffffff"></svgicon></router-link>
 		<a id="deletePaletteBtn" v-on:click="deletePalette"><svgicon width="32" height="32" icon="delete" color="#ffffff"></svgicon></a>
 	</div>
@@ -45,6 +48,24 @@ export default {
 					this.$router.push('/');
 				}
 			});
+		},
+		copyColorInfo(colorValue, event) {
+			// Get the currently clicked color
+			let detailColor = event.target;
+			// Add the flashing animation class
+			detailColor.classList.add('detail-palette-color-selector-active');
+			// Listen for the animation to end and remove the class
+			detailColor.addEventListener('animationend', () => {
+				detailColor.classList.remove('detail-palette-color-selector-active');
+			});
+			const el = document.createElement('textarea');
+			el.value = colorValue;
+			document.body.appendChild(el);
+			el.select();
+			document.execCommand('copy');
+			document.body.removeChild(el);
+			// Notify the copying as finished
+			this.$toasted.show(`Copied ${colorValue} to clipboard`);
 		}
 	},
 	created() {
@@ -95,6 +116,18 @@ export default {
 
 .detail-palette-color-group-leave-to {
 	opacity: 0;
+}
+
+.detail-palette-color-selector {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.detail-palette-color-selector-active {
+	background: black;
+	animation: flash 0.4s;
+	animation-fill-mode: forwards;
 }
 
 #deletePaletteBtn {
