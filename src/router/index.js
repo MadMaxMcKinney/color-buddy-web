@@ -28,7 +28,6 @@ export default new Router({
 			} else {
 				next(false);
 				Vue.toasted.show('Must be logged in');
-				from();
 			}
 		}
 	},
@@ -40,7 +39,6 @@ export default new Router({
 			if(firebase.auth().currentUser) {
 				next(false);
 				Vue.toasted.show('Already logged in');
-				from();
 			} else {
 				next();
 			}
@@ -61,7 +59,25 @@ export default new Router({
 		path: '/edit/:id',
 		component: EditPalette,
 		props: true,
-		name: 'editpalette'
+		name: 'editpalette',
+		beforeEnter: (to, from, next) => {
+			// First check if the user is logged in
+			if(firebase.auth().currentUser) {
+				// Then check the user id of the logged in user to see if it matches the user id that was assigned to the color palette
+				firebase.firestore().collection('colorPalettes').doc(to.params.id).get().then(doc => {
+					let color = doc.data();
+					if(firebase.auth().currentUser.uid == color.user_id) {
+						next();
+					} else {
+						next(false);
+						Vue.toasted.show('This is not your palette to edit');
+					}
+				});
+			} else {
+				next(false);
+				Vue.toasted.show('Must be logged in to edit a palette');
+			}
+		}
 	}
   ]
 })

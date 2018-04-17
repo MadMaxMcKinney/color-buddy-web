@@ -17,7 +17,9 @@
 					<label>Colors</label>
 					<ul class="new-color-list">
 						<li class="new-color-btn-container"><a class="btn" id="newColorBtn" @click="newColor">+</a></li>
-						<li v-for="(color, index) in colors" :key="index"><input type="color" :id="'color' + index" v-model="color.value"/></li>
+						<li v-for="(color, index) in colors" :key="index"><input type="color" :id="'color' + index" v-model="color.value"/>
+							<a class="new-color-close-btn" v-on:click="removeColor(color, index)"><svgicon icon="close" color="#ffffff"></svgicon></a>
+						</li>
 					</ul>
 				</p>
 
@@ -87,6 +89,10 @@ export default {
 				});
 			}
 		},
+		removeColor : function(colorToRemove, indexOfColor) {
+			this.colors.splice(indexOfColor, 1);
+			this.$toasted.show('Removed color');
+		}
 	},
 	components: {
 		'navbar': navbar,
@@ -159,11 +165,29 @@ export default {
 	overflow: hidden;
 	border-radius: 4px;
 	transition: all 0.3s;
+	animation: fade-in 0.3s;
 }
 
 .new-color-list li:hover {
 	box-shadow: 0px 5px 20px #00000080;
 	transform: translateY(-2px);
+}
+
+.new-color-list li.new-color-btn-container {
+	animation: none;
+}
+
+.new-color-close-btn {
+	position: absolute;
+	top: 4px;
+	right: 8px;
+	opacity: 0;
+	z-index: 3;
+	transition: opacity 0.3s;
+}
+
+.new-color-list li:hover .new-color-close-btn {
+	opacity: 1;
 }
 
 #createPaletteForm input[type='color'] {

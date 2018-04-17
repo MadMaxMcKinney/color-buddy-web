@@ -29,6 +29,8 @@ export default {
 			firebase.auth().signOut().then(
 				success => {
 					this.$toasted.show('Logged out successfully');
+					// Once you logout push the user back to the homepage
+					this.$router.push('/');
 				},
 				err => {
 					alert(err);
