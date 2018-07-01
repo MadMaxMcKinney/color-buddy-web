@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Palettes from '@/components/pages/Palettes'
+import Groups from '@/components/pages/Groups'
 import CreatePalette from '@/components/pages/CreatePalette'
 import LogIn from '@/components/pages/LogIn'
 import DetailPalette from '@/components/pages/DetailPalette'
@@ -18,6 +19,11 @@ export default new Router({
     	path: '/',
     	name: 'palettes',
     	component: Palettes
+	},
+	{
+    	path: '/groups',
+    	name: 'groups',
+    	component: Groups
 	},
 	{
 		path: '/createpalette',

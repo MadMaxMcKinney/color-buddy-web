@@ -4,14 +4,17 @@
 		<ul class="palette-card-colors">
 			<!-- For each color item in the color array use it's value to create a new list item
 			with the color background from the list item -->
-			<li class="palette-color" v-for="(color, index) in colors" :key="index" v-bind:style="{backgroundColor: color.value}"></li>
+			<palette-card class="palette-color" v-for="(palette, index) in paletteIds" :key="index" :title="palette.title" :colors="fetchPaletteColors(palette)"></palette-card>
 		</ul>
 	</div>
 </template>
 
 <script>
+import firebase from './firebaseInit'
+import paletteCard from './PaletteCard'
+
 export default {
-	name: 'palette-card',
+	name: 'group-card',
 	data() {
 		return {
 
@@ -19,7 +22,17 @@ export default {
 	},
 	props: {
 		title: String,
-		colors: Array
+		paletteIds: Array,
+	},
+	components : {
+		'palette-card' : paletteCard
+	},
+	methods : {
+		fetchPaletteColors(paletteId) {
+			firebase.firestore().collection('colorPalettes').doc(paletteId).get().then(palette => {
+				return palette.colors;
+			});
+		}
 	}
 }
 </script>

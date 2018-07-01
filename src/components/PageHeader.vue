@@ -11,7 +11,7 @@
 
 <script>
 export default {
-	name: 'PageHeader',
+	name: 'page-header',
 	data() {
 		return {
 

@@ -2,7 +2,22 @@
 
 > A web application for managing and creating color palettes.
 
-![banner](readme-banner.png)
+![banner](readme-banner.png?s=200)
+
+## Why Color Buddy?
+
+Color is an essential form of communication in today’s world. It sends universal messages that play an importance in everyday life. Color altars feelings and emotions which can change one’s actions, cause reactions, and even sway thinking processes. This perception is fundamental to graphic and web design as it stimulates audience reaction. To do so the right color palette is vital.
+
+Color Buddy is an application designed to simplify the management of color palettes. It allows the user to create an account and store their information in the cloud. Color Buddy was built as a ‘platform’ with a foundation to continue to grow from.
+
+**Current Features**
+
+* Creation of color palettes
+	* Add, remove, and edit color palettes
+* Custom account system
+	* All palettes, groups, etc are stored under the account
+* Share a color palette for others to view via a unique link
+
 
 ## Build Setup
 
@@ -20,4 +35,4 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For a detailed explanation on how things work, check out the [vue webpack guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
