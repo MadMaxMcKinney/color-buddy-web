@@ -21,6 +21,12 @@ Color Buddy is an application designed to simplify the management of color palet
 
 ## Build Setup
 
+![GitHub package version](https://img.shields.io/github/package-json/v/MaxMcKinney/color-buddy-web.svg) 
+![GitHub issues](https://img.shields.io/github/issues/MaxMcKinney/color-buddy-web.svg) 
+![license](https://img.shields.io/github/license/MaxMcKinney/color-buddy-web.svg) 
+![GitHub last commit](https://img.shields.io/github/last-commit/MaxMcKinney/color-buddy-web.svg)
+
+
 ``` bash
 # install dependencies
 npm install
