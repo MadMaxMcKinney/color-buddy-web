@@ -18,6 +18,9 @@ Color Buddy is an application designed to simplify the management of color palet
 	* All palettes, groups, etc are stored under the account
 * Share a color palette for others to view via a unique link
 
+## Live Demo
+You can view the full version of the application running at [colorbuddy.tech](https://colorbuddy.tech/)
+
 
 ## Build Setup
 
