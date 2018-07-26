@@ -1,6 +1,11 @@
 # color-buddy
 
-> A web application for managing and creating color palettes.
+![GitHub package version](https://img.shields.io/github/package-json/v/MaxMcKinney/color-buddy-web.svg) 
+![GitHub issues](https://img.shields.io/github/issues/MaxMcKinney/color-buddy-web.svg) 
+![license](https://img.shields.io/github/license/MaxMcKinney/color-buddy-web.svg) 
+![GitHub last commit](https://img.shields.io/github/last-commit/MaxMcKinney/color-buddy-web.svg)
+
+#### A web application for managing and creating color palettes.
 
 ![banner](readme-banner.png?s=200)
 
@@ -23,12 +28,6 @@ You can view the full version of the application running at [colorbuddy.tech](ht
 
 
 ## Build Setup
-
-![GitHub package version](https://img.shields.io/github/package-json/v/MaxMcKinney/color-buddy-web.svg) 
-![GitHub issues](https://img.shields.io/github/issues/MaxMcKinney/color-buddy-web.svg) 
-![license](https://img.shields.io/github/license/MaxMcKinney/color-buddy-web.svg) 
-![GitHub last commit](https://img.shields.io/github/last-commit/MaxMcKinney/color-buddy-web.svg)
-
 
 ``` bash
 # install dependencies
